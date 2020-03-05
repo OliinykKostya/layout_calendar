@@ -1,3 +1,53 @@
 body {
   margin: 0;
 }
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 710px;
+}
+
+.calendar > div {
+  display: none;
+  text-align: center;
+  line-height: 100px;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  background-color: #eee;
+  border: 1px solid black;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+$weeks: ("mon":0, "tue":1, "wed":2, "thu":3, "fri":4, "sat":5, "sun":6);
+$days: 28, 29, 30, 31;
+
+@for $i from 1 through 31 {
+  .calendar > :nth-child(#{$i})::before {
+    content: "#{$i}";
+  }
+}
+
+@each $day in $days {
+  @for $index from 1 through $day {
+    .calendar-#{$day} > :nth-child(#{$index}) {
+      display: block;
+    }
+  }
+}
+
+@each $dayweek, $i in $weeks {
+  .calendar-#{$dayweek} > :first-child {
+    margin-left: 101px * $i;
+  }
+}
+
+.calendar > :hover {
+  cursor: pointer;
+  background-color: pink;
+}
